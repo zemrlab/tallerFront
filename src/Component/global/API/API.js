@@ -1,4 +1,4 @@
 export default {
-    "url":" https://modulocontrol.herokuapp.com/"
+    "url":" https://sigap-controlrecibos-servicios.herokuapp.com/"
     //"url":"http://localhost:7896/"
 }
