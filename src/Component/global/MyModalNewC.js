@@ -229,7 +229,7 @@ class MyModal extends Component{
                             <label >Observaciones upg:</label>
                             <textarea rows="2" cols="30" id="obsupg"></textarea>
                         </div>
-                        <button type = "button" className = "btn btn-primary" onClick = {this.handlerGuardar}>ENVIAR</button>
+                        <button type = "button" className = "btn btn-primary" onClick = {this.handlerGuardar}>REGISTRAR</button>
                         <button type = "button" className = "btn btn-secondary" data-dismiss = "modal" onClick = {ModalManager.close}>Cerrar</button>
                     </form>
                 </div>
