@@ -47,6 +47,7 @@ class MyModal extends Component{
                       <Input type="textarea" className = "form-control" id = "message-text" innerRef={this.texto} defaultValue={text!=="0"?(text):(null)}/>
                     </ModalBody>
                     <ModalFooter>
+                        <Button color="primary" onClick={this.handlerGuardar}>Guardar</Button>{' '}
                         <Button color="secondary" onClick={this.close}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
