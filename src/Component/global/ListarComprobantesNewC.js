@@ -248,12 +248,8 @@ class ListarComponentes extends Component {
     // envia un JSON al server
     handleEnviarData() {
         //console.log(this.state.JSON);
-        const arreglo = this.verificar();
-        //console.log(this.state.JSON);
-        //console.log(JSON.stringify(arreglo));
-        // console.log(JSON.stringify(arreglo));
+        const arreglo = this.verificar();      
         const url = URL.url.concat('recaudaciones/new');
-        // const url= 'https://api-modulocontrol.herokuapp.com/recaudaciones/new';
         this.setState({
             isLoading: true
         });
@@ -275,9 +271,7 @@ class ListarComponentes extends Component {
                     alert('Datos cargados exitosamente');
                 }
             })
-        // console.log(arreglo);
-        //https://github.com/calambrenet/react-table/blob/master/src/react-table.jsx
-    }
+         }
 
 
     eventoNombre(e, f, c) {
@@ -352,7 +346,7 @@ class ListarComponentes extends Component {
                                 </td>
                                 <td className="two-fields">
                                     <input type="button" onClick={this.openModal} id={dynamicData.observacion}
-                                        name={dynamicData.id_rec} className="btn btn-primary" value="OBS"></input>
+                                        name={dynamicData.id_rec} className="btn btn-primary" value="..."></input>
                                     <input type="button" onClick={this.openModalEco} id={dynamicData.observacion_upg}
                                         name={dynamicData.id_rec} className="btn btn-primary"
                                         value="..."></input>
