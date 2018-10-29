@@ -145,6 +145,16 @@ class MyModal extends Component{
         data.validado =verif;
         data.tipo =document.getElementById("tipo").value;
         //ModalManager.close();
+        
+        console.log("VERIFICANDO-this.props.id:");
+        console.log(this.props.id);
+        
+        console.log("VERIFICANDO-this.props.nombre:");
+        console.log(this.props.nombre);
+        
+        console.log("VERIFICANDO-this.props.codigo:");
+        console.log(this.props.codigo);
+        
         console.log("DATA:");
         console.log(data);
         console.log("DATA STRINGIFY:");
