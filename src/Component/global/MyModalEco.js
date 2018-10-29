@@ -36,7 +36,7 @@ class MyModal extends Component{
     render(){
         const {text} = this.props;
         //console.log(text);
-        const externalCloseBtn = <button className="close" style={{ position: 'absolute', top: '15px', right: '15px' }} onClick={this.close}>&times;</button>;
+        const externalCloseBtn = <button className="close" style={{ position: 'absolute', top: '10px', right: '10px' }} onClick={this.close}>&times;</button>;
         return (
             <div>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} external={externalCloseBtn}>
