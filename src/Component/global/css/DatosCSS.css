@@ -46,10 +46,13 @@ td{
 
 .two-fields {
   width:4%;
+  height:17px;
 }
 .two-fields .input-group {
   width:50%;
+  height:17px;
 }
 .two-fields input {
   width:25% !important;
+  height:17px;
 }
