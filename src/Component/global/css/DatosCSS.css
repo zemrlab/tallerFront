@@ -45,11 +45,11 @@ td{
 }
 
 .two-fields {
-  width:8%;
+  width:4%;
 }
 .two-fields .input-group {
-  width:100%;
+  width:50%;
 }
 .two-fields input {
-  width:50% !important;
+  width:25% !important;
 }
