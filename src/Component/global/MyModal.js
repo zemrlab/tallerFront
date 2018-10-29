@@ -44,10 +44,9 @@ class MyModal extends Component{
                         <Label>Observaciones</Label>
                     </ModalHeader>
                     <ModalBody>
-                      <Input type="textarea" readonly className = "form-control" id = "message-text" innerRef={this.texto} defaultValue={text!=="0"?(text):(null)}/>
+                      <Input type="textarea" readOnly className = "form-control" id = "message-text" innerRef={this.texto} defaultValue={text!=="0"?(text):(null)}/>
                     </ModalBody>
-                    <ModalFooter>
-                        <Button color="primary" onClick={this.handlerGuardar}>Guardar</Button>{' '}
+                    <ModalFooter>                        
                         <Button color="secondary" onClick={this.close}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
