@@ -221,7 +221,7 @@ class MyModal extends Component{
                         </div>
                         <div className="form-group">
                             <label >Observaciones:</label>
-                            <textarea rows="2" cols="30" id="obs"></textarea>
+                            <textarea rows="2" readOnly cols="30" id="obs"></textarea>
                         </div>
                         <div className="form-group">
                         </div>
