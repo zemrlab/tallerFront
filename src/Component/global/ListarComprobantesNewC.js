@@ -43,7 +43,7 @@ class ListarComponentes extends Component {
         const lista = this.props.listado;
         if (lista !== null) {
             lista.map((item, key) => {
-                arreglo = arreglo.concat(new this.Obj(item.id_rec, item.observacion, item.observacion_upg, item.id_ubicacion && item.id_ubicacion, item.id_tipo, item.validado, item.nombre,
+                arreglo = arreglo.concat(new this.Obj(item.id_rec, item.observacion, item.observacion_upg, item.id_ubicacion, item.id_tipo, item.validado, item.nombre,
                     item.concepto, item.codigo, item.recibo, item.importe, item.fecha, item.id_alum));
                 return null;
             });
@@ -54,9 +54,7 @@ class ListarComponentes extends Component {
                 console.log("call"+this.state.data)
             }*/)
 
-        }
-        //console.log(arreglo);
-        //const url= 'https://api-modulocontrol.herokuapp.com/ubicaciones';
+        }        
         const url = URL.url.concat('ubicaciones');
         fetch(url, {
             method: 'GET',
@@ -67,19 +65,16 @@ class ListarComponentes extends Component {
         })
             .then(res => res.json())
             .then(res => {
-                if (res.status) { // exito
+                if (res.status) {
                     let dataTipo = res["data"];
                     this.setState({
                         ubicDato: dataTipo
-                    });
-
-                    // console.log(dataTipo);
+                    });                    
                 } else {
                     alert("Fallo al cargar datos, Intentelo mas tarde")
                 }
             });
-        const url2 = URL.url.concat('tipos');
-        //  const url2= 'https://api-modulocontrol.herokuapp.com/tipos';
+        const url2 = URL.url.concat('tipos');      
         fetch(url2, {
             method: 'GET',
             headers: {
@@ -89,19 +84,15 @@ class ListarComponentes extends Component {
         })
             .then(res => res.json())
             .then(res => {
-                if (res.status) { // exito
+                if (res.status) {
                     let dataTipo = res["data"];
                     this.setState({
                         tipoDato: dataTipo
-                    });
-                    // console.log(res["data"]);
-
-                    //  console.log(this.state.dataTipo);
+                    });                  
                 } else {
                     alert("Fallo al cargar datos, Intentelo mas tarde")
                 }
             });
-
     }
 
     // crear un objeto para enviar al server
@@ -133,12 +124,10 @@ class ListarComponentes extends Component {
             arreglo2 = arreglo2.concat(new this.crearJSON(item.codigo, item.concepto, item.ubic, item.id_rec, item.recibo, item.importe,
                 item.obs, item.obs_upg, item.flag, item.fecha, item.validado, item.tipo))
             return null;
-        });
-        //  console.log(arreglo2);
+        });        
         this.setState({
             JSON: arreglo2
-        });
-        //console.log(arreglo2);
+        });      
         return arreglo2;
     }
 
@@ -156,7 +145,8 @@ class ListarComponentes extends Component {
         this.recibo = recibo;
         this.importe = importe;
         this.fecha = fecha && fecha.substr(8, 2) + "-" + fecha.substr(5, 2) + "-" + fecha.substr(0, 4);
-        this.id = id_alum;
+        this.id_alum = id_alum;
+        //2018/10/29
     }
     //recibe las ubicaciones de los archivos
     handleChangeUbic(ubic, id_rec) {
@@ -283,8 +273,7 @@ class ListarComponentes extends Component {
 
 
     render() {
-        const listado = this.state.data;
-        // console.log(listado);
+        const listado = this.state.data;      
         if (listado == null) {
             return (
                 <div></div>
