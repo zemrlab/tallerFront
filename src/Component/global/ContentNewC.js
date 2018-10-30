@@ -143,7 +143,8 @@ class Content extends Component{
                 "periodoF": this.state.dates2,
                 "voucher":this.state.recibo,
                 "dni":this.state.dni,
-                "codigo":this.state.codigo
+                "codigo":this.state.codigo,
+                "id_alum":this.state.id_alum
             };
             console.log(arra);
 
