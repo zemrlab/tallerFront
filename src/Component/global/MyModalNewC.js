@@ -134,8 +134,7 @@ class MyModal extends Component{
         }
         var data = {};
         //data.id_alum=this.props.id;
-        //data.id_alum=this.props.id_alum;
-        data.id_alum=document.getElementById("id_alum").value;
+        data.id_alum=this.props.id_alum;        
         data.id_concepto =document.getElementById("concepto").value;
         data.id_ubicacion =document.getElementById("ubicacion").value;
         data.codigo =document.getElementById("codigo").value;
@@ -148,7 +147,7 @@ class MyModal extends Component{
         data.tipo =document.getElementById("tipo").value;
         //ModalManager.close();
         
-        console.log("VERIFICANDO-document-getElementById:");
+        console.log("VERIFICANDO-this.props.id_alum:");
         console.log(data.id_alum);
         
         console.log("VERIFICANDO-this.props.nombre:");
