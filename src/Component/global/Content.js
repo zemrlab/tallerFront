@@ -280,7 +280,7 @@ class Content extends Component{
                       <div className="Buton-contenedor">
                           <button id="Buscar" onClick={this.handleSearchClick} className="btn btn-primary">Buscar </button>
                           <Link to="/nueva" className="btn btn-primary boton_medio">Agregar</Link>
-                          <a className="btn btn-primary" href="https://sigap-upg.herokuapp.com/dashboard" >Regresar</a>
+                          <a className="btn btn-primary" href="https://sigap-upg.herokuapp.com" >Regresar</a>
                           <button id="Limpiar" onClick={this.limpiar} className="btn btn-primary">Limpiar </button>
                       </div>
                       </div>
