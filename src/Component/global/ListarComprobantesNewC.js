@@ -41,6 +41,8 @@ class ListarComponentes extends Component {
     componentWillMount() {
         let arreglo = [];
         const lista = this.props.listado;
+        console.log("this.props.listado");
+        console.log(this.props.listado);
         if (lista !== null) {
             lista.map((item, key) => {
                 arreglo = arreglo.concat(new this.Obj(item.id_rec, item.observacion, item.observacion_upg, item.id_ubicacion, item.id_tipo, item.validado, item.nombre,
@@ -96,7 +98,7 @@ class ListarComponentes extends Component {
     }
 
     // crear un objeto para enviar al server
-    crearJSON(codigo, concepto, ubic, id_rec, recibo, importe, obs, obs_upg, flag, fecha, validado, tipo) {
+    crearJSON(codigo, concepto, ubic, id_rec, recibo, importe, obs, obs_upg, flag, fecha, validado, tipo, id_alum) {
         if (obs == null) obs = "";
         if (obs_upg == null) obs_upg = "";
         if (ubic == null) ubic = 0;
@@ -113,6 +115,7 @@ class ListarComponentes extends Component {
         this.fecha = fecha;
         this.tipo = tipo;
         this.validado = validado;
+        this.id_alum=id_alum;
 
     }
 
@@ -122,7 +125,7 @@ class ListarComponentes extends Component {
         let arreglo2 = [];
         arreglo.map(item => {
             arreglo2 = arreglo2.concat(new this.crearJSON(item.codigo, item.concepto, item.ubic, item.id_rec, item.recibo, item.importe,
-                item.obs, item.obs_upg, item.flag, item.fecha, item.validado, item.tipo))
+                item.obs, item.obs_upg, item.flag, item.fecha, item.validado, item.tipo, item.id_alum))
             return null;
         });        
         this.setState({
@@ -318,7 +321,7 @@ class ListarComponentes extends Component {
                         <tbody id="table">{listado.map((dynamicData, i) =>
                             <tr key={i}>
                                 <td>{i + 1}</td>
-                                <td onClick={(e) => this.eventoNombre(dynamicData.id, dynamicData.nombre, dynamicData.codigo)} title="click para añadir un nuevo registro" className="detalles" nam={dynamicData.nombre}>{dynamicData.nombre}</td>
+                                <td onClick={(e) => this.eventoNombre(dynamicData.id, dynamicData.nombre, dynamicData.codigo, dynamicData.id_alum)} title="click para añadir un nuevo registro" className="detalles" nam={dynamicData.nombre}>{dynamicData.nombre}</td>
                                 <td>{dynamicData.concepto}</td>
                                 <td>{dynamicData.codigo}</td>
                                 <td>{dynamicData.recibo}</td>
