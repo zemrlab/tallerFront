@@ -148,7 +148,7 @@ class MyModal extends Component{
         //ModalManager.close();
         
         console.log("VERIFICANDO-this.props.id_alum:");
-        console.log(data.id_alum);
+        console.log(this.props);
         
         console.log("VERIFICANDO-this.props.nombre:");
         console.log(this.props.nombre);
@@ -185,6 +185,9 @@ class MyModal extends Component{
     }
 
     render(){
+        console.log("VERIFICANDO-RENDER:");
+        console.log(this.props);
+        
         let nombre = this.props.nombre;
         let codigo = this.props.codigo;
         return (
