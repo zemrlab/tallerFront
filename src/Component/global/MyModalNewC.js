@@ -133,7 +133,8 @@ class MyModal extends Component{
            verif=false;
         }
         var data = {};
-        data.id_alum=this.props.id;
+        //data.id_alum=this.props.id;
+        data.id_alum=this.props.id_alum;
         data.id_concepto =document.getElementById("concepto").value;
         data.id_ubicacion =document.getElementById("ubicacion").value;
         data.codigo =document.getElementById("codigo").value;
@@ -147,7 +148,7 @@ class MyModal extends Component{
         //ModalManager.close();
         
         console.log("VERIFICANDO-this.props.id:");
-        console.log(this.props.id);
+        console.log(this.props.id_alum);
         
         console.log("VERIFICANDO-this.props.nombre:");
         console.log(this.props.nombre);
