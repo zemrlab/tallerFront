@@ -27,10 +27,8 @@ class MyModal extends Component{
             }          
         }).then(res => res.json())
         .then(res => {
-            if (res.status) { // exito
-                //  console.log(res);
-                data=res;
-                //console.log(data);
+            if (res.status) {              
+                data=res;            
                 // Llenar select de conceptos
                 var x = document.getElementById("concepto");
                 for (var i = 0; i < data["data"].length; i++) {
@@ -53,10 +51,8 @@ class MyModal extends Component{
             //body: JSON.stringify(data)
         }).then(res => res.json())
         .then(res => {
-            if (res.status){ // exito
-                //  console.log(res);
-                data=res;
-                //console.log(data);
+            if (res.status){ 
+                data=res;             
                 // Llenar select de conceptos
                 var x = document.getElementById("ubicacion");
                 for (var i = 0; i < data["data"].length; i++) {
@@ -77,13 +73,10 @@ class MyModal extends Component{
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
               }
-            //body: JSON.stringify(data)
-        }).then(res => res.json())
+         }).then(res => res.json())
         .then(res => {
-            if (res.status) { // exito
-              //  console.log(res);
-                data=res;
-                //console.log(data);
+            if (res.status) { 
+                data=res;             
                 // Llenar select de conceptos
                 var x = document.getElementById("tipo");
                 for (var i = 0; i < data["data"].length; i++) {
@@ -98,13 +91,10 @@ class MyModal extends Component{
         });
     }
 
-    handleRevisar(){
-        //WEBADAS
+    handleRevisar(){      
         var data2 = {};
         data2.numero = document.getElementById("recibo").value;
-
         const url2 = URL.url.concat('verificar');
-
         fetch(url2,{
             method: 'POST',
             headers: {
@@ -115,7 +105,6 @@ class MyModal extends Component{
         })
         .then(res => res.json())
         .then(res => {
-
             if(res.data[0].verificar === false){
                 console.log('Entro al response remaster');
                 alert('El numero de recibo ya ha sido ingresado con anterioridad');
@@ -125,7 +114,6 @@ class MyModal extends Component{
 
     }
     handlerGuardar(){
-
         var verif;
         if(document.getElementById("verificar").value === "true"){
           verif=true;
@@ -161,8 +149,7 @@ class MyModal extends Component{
         console.log("DATA STRINGIFY:");
         console.log(JSON.stringify(data));
 
-        const url = URL.url.concat('recaudaciones/new');
-        //const url= 'https://api-modulocontrol.herokuapp.com/recaudaciones/new';
+        const url = URL.url.concat('recaudaciones/new');     
         fetch(url,{
             method: 'POST',
             headers: {
