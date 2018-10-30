@@ -11,8 +11,6 @@ import './css/ListarComprobanteNewC.css';
 import MyModalEco from './MyModalEco';
 import Modal2 from './MyModalNewC';
 import ReactDOM from "react-dom";
-//import Datos from './Datos/Items';
-//import Datos2 from './Datos/Tipo';
 
 class ListarComponentes extends Component {
     constructor(...props) {
@@ -40,16 +38,13 @@ class ListarComponentes extends Component {
 
     componentWillMount() {
         let arreglo = [];
-        const lista = this.props.listado;
-        console.log("-------ListarComprobantesNewC.js:this.props.listado----------------");
-        console.log(this.props.listado);
+        const lista = this.props.listado;  
         if (lista !== null) {
             lista.map((item, key) => {
                 arreglo = arreglo.concat(new this.Obj(item.id_rec, item.observacion, item.observacion_upg, item.id_ubicacion, item.id_tipo, item.validado, item.nombre,
                     item.concepto, item.codigo, item.recibo, item.importe, item.fecha, item.id_alum));
                 return null;
-            });
-            //console.log(arreglo);
+            });    
             this.setState({
                 data: arreglo
             }/*, function () {
@@ -148,8 +143,7 @@ class ListarComponentes extends Component {
         this.recibo = recibo;
         this.importe = importe;
         this.fecha = fecha && fecha.substr(8, 2) + "-" + fecha.substr(5, 2) + "-" + fecha.substr(0, 4);
-        this.id_alum = id_alum;
-        //2018/10/29
+        this.id_alum = id_alum;  
     }
     //recibe las ubicaciones de los archivos
     handleChangeUbic(ubic, id_rec) {
@@ -320,7 +314,7 @@ class ListarComponentes extends Component {
                         <tbody id="table">{listado.map((dynamicData, i) =>
                             <tr key={i}>
                                 <td>{i + 1}</td>
-                                <td onClick={(e) => this.eventoNombre(dynamicData.id, dynamicData.nombre, dynamicData.codigo, dynamicData.id_alum)} title="click para añadir un nuevo registro" className="detalles" nam={dynamicData.nombre}>{dynamicData.nombre}</td>
+                                <td onClick={(e) => this.eventoNombre(dynamicData.id_rec, dynamicData.nombre, dynamicData.codigo, dynamicData.id_alum)} title="click para añadir un nuevo registro" className="detalles" nam={dynamicData.nombre}>{dynamicData.nombre}</td>
                                 <td>{dynamicData.concepto}</td>
                                 <td>{dynamicData.codigo}</td>
                                 <td>{dynamicData.recibo}</td>
