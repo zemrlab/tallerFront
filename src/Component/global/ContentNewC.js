@@ -140,6 +140,7 @@ class Content extends Component{
                 "codigo":this.state.codigo,
                 "id_alum":this.state.id_alum
             };
+            console.log("ContentNewC: Linea 143");
             console.log(arra);
 
             this.setState({
@@ -168,7 +169,7 @@ class Content extends Component{
                     mensaje:(responseJson.data!==null && responseJson.data.length!==0)?(""):("Datos no encontrados"),
                     isLoading:false
                 });
-                console.log( "ContentNewC.js");
+                console.log( "ContentNewC.js: Linea 172");
                 console.log( responseJson.data);
             });
     }
