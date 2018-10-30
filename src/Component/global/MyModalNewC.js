@@ -138,6 +138,9 @@ class MyModal extends Component{
         console.log("VERIFICANDO-this.props.id_alum:");
         console.log(this.props);
         
+        console.log("---VERIFICANDO- this.props.listado:-----");
+        console.log(this.props.listado);        
+        
         console.log("VERIFICANDO-this.props.nombre:");
         console.log(this.props.nombre);
         
