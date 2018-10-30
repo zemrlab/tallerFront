@@ -4,11 +4,8 @@ import Listardatos from './ListarComprobantesNewC';
 import URL from './API/API';
 import './css/Content.css';
 import './css/bootstrap.css';
-//import $ from "jquery";
 
 class Content extends Component{
-
-
     constructor(){
         super();
 
@@ -102,8 +99,7 @@ class Content extends Component{
             dates2: date.target.value,
             mensaje:"",
             operacion:"c"
-        });
-        //  console.log(this.state.dates2);
+        });  
     }
 
     // ingresar texto
@@ -122,9 +118,7 @@ class Content extends Component{
         }
     }
     //buscar
-    handleSearchClick(e) {
-       // let url = 'https://api-modulocontrol.herokuapp.com/recaudaciones/';
-      //  url = url.concat('detallada/');
+    handleSearchClick(e) {   
         let url = URL.url.concat('recaudaciones/detallada/');
         if(this.state.nombre_apellido === "" && this.state.concepto === ""&& this.state.recibo === "" &&
             this.state.dates2 === "" && this.state.dates === "" && this.state.dni === "" && this.state.codigo === ""){
@@ -177,16 +171,13 @@ class Content extends Component{
                 console.log( "ContentNewC.js");
                 console.log( responseJson.data);
             });
-
     }
-
  }
  handleKeyPress = (event) => {
      if(event.key === 'Enter'){
          this.handleSearchClick();
      }
  };
-
 
     render(){
         return(
