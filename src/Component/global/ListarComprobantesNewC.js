@@ -41,7 +41,7 @@ class ListarComponentes extends Component {
     componentWillMount() {
         let arreglo = [];
         const lista = this.props.listado;
-        console.log("this.props.listado");
+        console.log("-------ListarComprobantesNewC.js:this.props.listado----------------");
         console.log(this.props.listado);
         if (lista !== null) {
             lista.map((item, key) => {
@@ -220,8 +220,7 @@ class ListarComponentes extends Component {
         }, {});
     }
     // abre el componente MyModal para ingresar observaciones
-    openModal(e) {
-        //https://github.com/xue2han/react-dynamic-modal
+    openModal(e) {     
         let text = e.target.id;
         // console.log(text);
         let id_re = e.target.name;
@@ -230,7 +229,6 @@ class ListarComponentes extends Component {
         ReactDOM.render(component, node);
     }
     openModalEco(e) {
-        //https://github.com/xue2han/react-dynamic-modal
         let text = e.target.id;
         // console.log(text);
         let id_re = e.target.name;
@@ -267,11 +265,12 @@ class ListarComponentes extends Component {
          }
 
 
-    eventoNombre(e, f, c) {
+    eventoNombre(e, f, c, d) {
         let id = e;
         let nom = f;
         let cod = c;
-        ModalManager.open(<Modal2 id={id} nombre={nom} codigo={cod} />);
+        let ida = d;
+        ModalManager.open(<Modal2 id={id} nombre={nom} codigo={cod} id_alum={ida}/>);
     }
 
 
