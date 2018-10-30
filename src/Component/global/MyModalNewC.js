@@ -230,8 +230,7 @@ class MyModal extends Component{
 }
 
 const estilonuevo = {
-    overlay: {
-        position        : 'fixed',
+    overlay: {      
         top             : 0,
         left            : 0,
         right           : 0,
