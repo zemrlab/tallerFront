@@ -174,7 +174,8 @@ class Content extends Component{
                     mensaje:(responseJson.data!==null && responseJson.data.length!==0)?(""):("Datos no encontrados"),
                     isLoading:false
                 });
-                //console.log( responseJson.data.length);
+                console.log( "ContentNewC.js");
+                console.log( responseJson.data);
             });
 
     }
