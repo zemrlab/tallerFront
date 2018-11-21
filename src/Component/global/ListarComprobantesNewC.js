@@ -392,9 +392,9 @@ class ListarComponentes extends Component {
 
 
 
-                                    <input type="button" onClick={this.openModalEco} id={dynamicData.observacion}
+                                    <input type="button" onClick={this.openModal} id={dynamicData.observacion}
                                         name={dynamicData.id_rec} className="btn btn-primary" value="..."></input>
-                                    <input type="button" onClick={this.openModal} id={dynamicData.observacion_upg}
+                                    <input type="button" onClick={this.openModalEco} id={dynamicData.observacion_upg}
                                         name={dynamicData.id_rec} className="btn btn-primary"
                                         value="..."></input>
                                 </td>
