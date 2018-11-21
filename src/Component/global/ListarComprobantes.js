@@ -5,9 +5,11 @@ import Modal2 from './Modal2';
 import Combo from './Combo';
 import URL from './API/API';
 import Check from './Check';
-import MyModalEco from './MyModalEco';
+
+import MyModalUpg from './MyModalUpg';
 import './css/DatosCSS.css';
 import './css/bootstrap.css';
+import './css/bootstrap.min.css';
 //import Datos from './Datos/Items';
 
 
@@ -16,9 +18,9 @@ class ListarComponentes extends Component {
         super(...props);
         this.handleEnviarData = this.handleEnviarData.bind(this);
         this.openModal = this.openModal.bind(this);
-        this.openModalEco = this.openModalEco.bind(this);
+        this.openModalUpg = this.openModalUpg.bind(this);
         this.handleChangeObs_comentarios = this.handleChangeObs_comentarios.bind(this);
-        this.handleChangeObs_economia = this.handleChangeObs_economia.bind(this);
+        this.handleChangeObs_upg = this.handleChangeObs_upg.bind(this);
         this.handleChangeUbic = this.handleChangeUbic.bind(this);
         this.Obj = this.Obj.bind(this);
         this.handleChangeEstado = this.handleChangeEstado.bind(this);
@@ -34,6 +36,7 @@ class ListarComponentes extends Component {
             isLoading: false
         }
     }
+
     componentWillMount() {
 
 
@@ -41,7 +44,8 @@ class ListarComponentes extends Component {
         const lista = this.props.listado;
         if (lista !== null) {
             lista.map((item, key) => {
-                arreglo = arreglo.concat(new this.Obj(item.id_rec, item.observacion, item.observacion_upg, item.id_ubicacion && item.id_ubicacion, item.validado, item.nombre,
+                arreglo = arreglo.concat(new this.Obj(item.id_rec, item.observacion, item.observacion_upg, item.id_ubicacion
+                    && item.id_ubicacion, item.validado, item.nombre,
                     item.concepto, item.codigo, item.recibo, item.importe, item.fecha));
                 return null;
             });
@@ -186,11 +190,11 @@ class ListarComponentes extends Component {
         // console.log(this.state.data);
     }
 
-    handleChangeObs_economia(text, id_rec) {
+    handleChangeObs_upg(text, id_rec) {
         this.setState(prevState => (
             prevState.data.map(items => {
                 if (items.id_rec === id_rec) {
-                    items.observacion_upg = text;
+                    items.obs_upg = text;
                 }
                 return null;
             },
@@ -198,6 +202,7 @@ class ListarComponentes extends Component {
                     data: prevState.data
                 })
         ));
+        //console.log(this.state.data);
     }
     groupBy(xs, key) {
         return xs.reduce(function (rv, x) {
@@ -206,23 +211,47 @@ class ListarComponentes extends Component {
         }, {});
     }
     // abre el componente MyModal para ingresar observaciones
-    openModal(e) {
-        //https://github.com/xue2han/react-dynamic-modal
-        let text = e.target.id;
+    openModal(e, o) {
+        //https://github.com/xue2han/react-dynamic-modal        
+        let id = e;
+        let obs = o;
+
+
         // console.log(text);
-        let id_re = e.target.name;
-        let component = <MyModal text={text} id_rec={id_re} change={this.handleChangeObs_comentarios} estado={true} />;
+        //let id_re = e.target.name;
+        let component = <MyModal id_rec={id} obs={obs} onChange={this.handleChangeObs_comentarios} estado={true} />;
         let node = document.createElement('div');
         ReactDOM.render(component, node);
+
     }
-    openModalEco(e) {
-        //https://github.com/xue2han/react-dynamic-modal
-        let text = e.target.id;
-        // console.log(text);
-        let id_re = e.target.name;
-        let component = <MyModalEco text={text} id_rec={id_re} change={this.handleChangeObs_economia} estado={true} />;
-        let node = document.createElement('div');
-        ReactDOM.render(component, node);
+    openModalUpg(e) {
+        let id = e;
+        const url = 'https://modulocontrol.herokuapp.com/recaudaciones/observaciones/' + id;
+
+
+
+        //console.log(url);
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        }).then(res => res.json())
+            .then(res => {
+                if (res.status) {
+                    this.setState({
+                        obsUpg: res.data
+                    })
+
+                    let component = <MyModalUpg id_rec={id} obs_upg={res.data} onChange={this.handleChangeObs_upg} estado={true} />;
+                    let node = document.createElement('div');
+                    ReactDOM.render(component, node);
+                    //console.log(res);
+                }else{
+                    alert("FALLÓ OPERACIÓN, ESPERE UN MOMENTO Y VUELVA A INTENTARLO ")
+                }
+            });
     }
     // envia un JSON al server
     handleEnviarData() {
@@ -293,16 +322,24 @@ class ListarComponentes extends Component {
         let node = document.createElement('div');
         ReactDOM.render(component, node);
     }
+
+    marcar() {
+
+    }
     render() {
 
         const listado = this.state.data;
-        // console.log(listado);
+        //console.log(listado);
 
         return (
             <div className="table-scroll">
+                <div>
+                    <input type="button" value="Sel. Todo" className="btn btn-success"></input>
+                </div>
                 <table className="table table-striped table-bordered table-hover">
                     <thead>
                         <tr className="tabla-cabecera">
+                            <th>Sel.</th>
                             <th>Nro</th>
                             <th>Nombre Apellido</th>
                             <th>Concepto</th>
@@ -317,6 +354,9 @@ class ListarComponentes extends Component {
                     </thead>
                     <tbody>{listado.map((dynamicData, i) =>
                         <tr key={i}>
+                            <td>
+                                <input type="checkbox"></input>
+                            </td>
                             <td>{i + 1}</td>
                             <td onClick={(e) => this.eventoNombre(e)} title="click para ver detalles" className="detalles" id={(dynamicData.codigo === "0") ? (dynamicData.nombre) : (dynamicData.codigo)}>{dynamicData.nombre}</td>
                             <td>{dynamicData.concepto}</td>
@@ -331,12 +371,19 @@ class ListarComponentes extends Component {
                                 <Check validado={dynamicData.validado} id={dynamicData.id_rec}
                                     change={this.handleChangeEstado} />
                             </td>
-                            <td className="two-fields"> 
-                                <input type="button" onClick={this.openModal} id={dynamicData.observacion}
-                                    name={dynamicData.id_rec} className="btn btn-primary" value="..."></input>
-                                <input type="button" onClick={this.openModalEco} id={dynamicData.observacion_upg}
-                                    name={dynamicData.id_rec} className="btn btn-primary"
-                                    value="..."></input>
+                            <td className="two-fields">
+                                <button id={dynamicData.observacion} name={dynamicData.id_rec}
+                                    onClick={(e) => this.openModal(dynamicData.id_rec, dynamicData.obs)} className="btn btn-primary">
+                                    <span className="mybtn-red glyphicon glyphicon-eye-open"></span>
+                                </button>
+
+
+                                <button id={dynamicData.observacion_upg} name={dynamicData.id_rec}
+                                    onClick={(e) => this.openModalUpg(dynamicData.id_rec, dynamicData.obs_upg)} className="btn btn-primary">
+                                    <span className="mybtn-blue glyphicon glyphicon-eye-open"></span>
+                                </button>
+
+
                             </td>
                         </tr>
                     )}
@@ -345,7 +392,8 @@ class ListarComponentes extends Component {
                 <div className="center-block">
                     <button id="Enviar" onClick={this.handleEnviarData} className="btn-enviar">Registrar</button>
                 </div>
-            </div>
+            </div >
+
         );
     }
 }
