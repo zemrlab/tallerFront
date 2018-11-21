@@ -8,21 +8,21 @@ import Check from './CheckNewC';
 import './css/DatosCSS.css';
 import './css/bootstrap.css';
 import './css/ListarComprobanteNewC.css';
-import MyModalUpg from './MyModalUpg';
+import MyModalEco from './MyModalEco';
 import Modal2 from './MyModalNewC';
 import ReactDOM from "react-dom";
-import './css/bootstrap.min.css';
-//import Datos from './Datos/Items';
-//import Datos2 from './Datos/Tipo';
+
+
+
 
 class ListarComponentes extends Component {
     constructor(...props) {
         super(...props);
         this.handleEnviarData = this.handleEnviarData.bind(this);
         this.openModal = this.openModal.bind(this);
-        this.openModalUpg = this.openModalUpg.bind(this);
+        this.openModalEco = this.openModalEco.bind(this);
         this.handleChangeObs_comentarios = this.handleChangeObs_comentarios.bind(this);
-        this.handleChangeObs_upg = this.handleChangeObs_upg.bind(this);
+        this.handleChangeObs_economia = this.handleChangeObs_economia.bind(this);
         this.handleChangeUbic = this.handleChangeUbic.bind(this);
         this.handleChangeType = this.handleChangeType.bind(this);
         this.Obj = this.Obj.bind(this);
@@ -41,23 +41,25 @@ class ListarComponentes extends Component {
 
     componentWillMount() {
         let arreglo = [];
-        const lista = this.props.listado;
+        const lista = this.props.listado;  
         if (lista !== null) {
             lista.map((item, key) => {
-                arreglo = arreglo.concat(new this.Obj(item.id_rec, item.observacion, item.observacion_upg, item.id_ubicacion && item.id_ubicacion, item.id_tipo, item.validado, item.nombre,
+                arreglo = arreglo.concat(new this.Obj(item.id_rec, item.observacion, item.observacion_upg, item.id_ubicacion, item.id_tipo, item.validado, item.nombre,
                     item.concepto, item.codigo, item.recibo, item.importe, item.fecha, item.id_alum));
                 return null;
-            });
-            //console.log(arreglo);
+
+
+            });    
             this.setState({
                 data: arreglo
             }/*, function () {
                 console.log("call"+this.state.data)
             }*/)
 
-        }
-        //console.log(arreglo);
-        //const url= 'https://api-modulocontrol.herokuapp.com/ubicaciones';
+
+
+
+        }        
         const url = URL.url.concat('ubicaciones');
         fetch(url, {
             method: 'GET',
@@ -68,19 +70,20 @@ class ListarComponentes extends Component {
         })
             .then(res => res.json())
             .then(res => {
-                if (res.status) { // exito
+                if (res.status) {
                     let dataTipo = res["data"];
                     this.setState({
                         ubicDato: dataTipo
-                    });
 
-                    // console.log(dataTipo);
+
+
+                    });                    
                 } else {
                     alert("Fallo al cargar datos, Intentelo mas tarde")
                 }
             });
-        const url2 = URL.url.concat('tipos');
-        //  const url2= 'https://api-modulocontrol.herokuapp.com/tipos';
+        const url2 = URL.url.concat('tipos');      
+
         fetch(url2, {
             method: 'GET',
             headers: {
@@ -90,14 +93,15 @@ class ListarComponentes extends Component {
         })
             .then(res => res.json())
             .then(res => {
-                if (res.status) { // exito
+                if (res.status) {
                     let dataTipo = res["data"];
                     this.setState({
                         tipoDato: dataTipo
-                    });
-                    // console.log(res["data"]);
 
-                    //  console.log(this.state.dataTipo);
+
+
+
+                    });                  
                 } else {
                     alert("Fallo al cargar datos, Intentelo mas tarde")
                 }
@@ -106,7 +110,7 @@ class ListarComponentes extends Component {
     }
 
     // crear un objeto para enviar al server
-    crearJSON(codigo, concepto, ubic, id_rec, recibo, importe, obs, obs_upg, flag, fecha, validado, tipo) {
+    crearJSON(codigo, concepto, ubic, id_rec, recibo, importe, obs, obs_upg, flag, fecha, validado, tipo, id_alum) {
         if (obs == null) obs = "";
         if (obs_upg == null) obs_upg = "";
         if (ubic == null) ubic = 0;
@@ -123,6 +127,7 @@ class ListarComponentes extends Component {
         this.fecha = fecha;
         this.tipo = tipo;
         this.validado = validado;
+        this.id_alum=id_alum;
 
     }
 
@@ -132,14 +137,16 @@ class ListarComponentes extends Component {
         let arreglo2 = [];
         arreglo.map(item => {
             arreglo2 = arreglo2.concat(new this.crearJSON(item.codigo, item.concepto, item.ubic, item.id_rec, item.recibo, item.importe,
-                item.obs, item.obs_upg, item.flag, item.fecha, item.validado, item.tipo))
+                item.obs, item.obs_upg, item.flag, item.fecha, item.validado, item.tipo, item.id_alum))
             return null;
-        });
-        //  console.log(arreglo2);
+
+
+        });        
         this.setState({
             JSON: arreglo2
-        });
-        //console.log(arreglo2);
+
+
+        });      
         return arreglo2;
     }
 
@@ -157,7 +164,7 @@ class ListarComponentes extends Component {
         this.recibo = recibo;
         this.importe = importe;
         this.fecha = fecha && fecha.substr(8, 2) + "-" + fecha.substr(5, 2) + "-" + fecha.substr(0, 4);
-        this.id = id_alum;
+        this.id_alum = id_alum;  
     }
     //recibe las ubicaciones de los archivos
     handleChangeUbic(ubic, id_rec) {
@@ -208,7 +215,7 @@ class ListarComponentes extends Component {
         // console.log(this.state.data);
     }
 
-    handleChangeObs_upg(text, id_rec) {
+    handleChangeObs_economia(text, id_rec) {
         this.setState(prevState => (
             prevState.data.map(items => {
                 if (items.id_rec === id_rec) {
@@ -228,51 +235,56 @@ class ListarComponentes extends Component {
         }, {});
     }
     // abre el componente MyModal para ingresar observaciones
-    openModal(e, o) {
-        //https://github.com/xue2han/react-dynamic-modal        
-        let id = e;
-        let obs = o;
+    openModal(e) {     
+
+
+
+        let text = e.target.id;
         // console.log(text);
-        //let id_re = e.target.name;
-        let component = <MyModal id_rec={id} obs={obs} change={this.handleChangeObs_comentarios} estado={true} />;
+        let id_re = e.target.name;
+        let component = <MyModal text={text} id_rec={id_re} change={this.handleChangeObs_comentarios} estado={true} />;
         let node = document.createElement('div');
         ReactDOM.render(component, node);
 
     }
-    openModalUpg(e) {
-        let id = e;
-        const url = 'https://modulocontrol.herokuapp.com/recaudaciones/observaciones/' + id;
-        //console.log(url);
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-        }).then(res => res.json())
-            .then(res => {
-                if (res.status) {
-                    this.setState({
-                        obsUpg: res.data
-                    })
-                    let component = <MyModalUpg id_rec={id} obs_upg={res.data} onChange={this.handleChangeObs_upg} estado={true} />;
-                    let node = document.createElement('div');
-                    ReactDOM.render(component, node);
-                    //console.log(res);
-                }else{
-                    alert("FALLÓ OPERACIÓN, ESPERE UN MOMENTO Y VUELVA A INTENTARLO ")
-                }
-            });
+
+
+
+    openModalEco(e) {
+        let text = e.target.id;
+        // console.log(text);
+
+
+
+
+
+
+
+
+
+
+
+
+        let id_re = e.target.name;
+        let component = <MyModalEco text={text} id_rec={id_re} change={this.handleChangeObs_economia} estado={true} />;
+        let node = document.createElement('div');
+        ReactDOM.render(component, node);
+
+
+
+
+
     }
     // envia un JSON al server
     handleEnviarData() {
         //console.log(this.state.JSON);
-        const arreglo = this.verificar();
-        //console.log(this.state.JSON);
-        //console.log(JSON.stringify(arreglo));
-        // console.log(JSON.stringify(arreglo));
+
+
+
+
+        const arreglo = this.verificar();      
         const url = URL.url.concat('recaudaciones/new');
-        // const url= 'https://api-modulocontrol.herokuapp.com/recaudaciones/new';
+
         this.setState({
             isLoading: true
         });
@@ -294,22 +306,24 @@ class ListarComponentes extends Component {
                     alert('Datos cargados exitosamente');
                 }
             })
-        // console.log(arreglo);
-        //https://github.com/calambrenet/react-table/blob/master/src/react-table.jsx
-    }
 
 
-    eventoNombre(e, f, c) {
+
+         }
+
+
+    eventoNombre(e, f, c, d) {
         let id = e;
         let nom = f;
         let cod = c;
-        ModalManager.open(<Modal2 id={id} nombre={nom} codigo={cod} />);
+        let ida = d;
+        ModalManager.open(<Modal2 id={id} nombre={nom} codigo={cod} id_alum={ida}/>);
     }
 
 
     render() {
-        const listado = this.state.data;
-        // console.log(listado);
+        const listado = this.state.data;      
+
         if (listado == null) {
             return (
                 <div></div>
@@ -338,7 +352,7 @@ class ListarComponentes extends Component {
                     <table className="tabla table-striped table-bordered table-hover" id="table">
                         <thead>
                             <tr className="tabla-cabecera">
-                                <th>Sel.</th>
+
                                 <th>Nro</th>
                                 <th>Nombre Apellido</th>
                                 <th>Concepto</th>
@@ -354,11 +368,11 @@ class ListarComponentes extends Component {
                         </thead>
                         <tbody id="table">{listado.map((dynamicData, i) =>
                             <tr key={i}>
-                                <td>
-                                    <input type="checkbox"></input>
-                                </td>
+
+
+
                                 <td>{i + 1}</td>
-                                <td onClick={(e) => this.eventoNombre(dynamicData.id, dynamicData.nombre, dynamicData.codigo)} title="click para añadir un nuevo registro" className="detalles" nam={dynamicData.nombre}>{dynamicData.nombre}</td>
+                                <td onClick={(e) => this.eventoNombre(dynamicData.id_rec, dynamicData.nombre, dynamicData.codigo, dynamicData.id_alum)} title="click para añadir un nuevo registro" className="detalles" nam={dynamicData.nombre}>{dynamicData.nombre}</td>
                                 <td>{dynamicData.concepto}</td>
                                 <td>{dynamicData.codigo}</td>
                                 <td>{dynamicData.recibo}</td>
@@ -374,14 +388,18 @@ class ListarComponentes extends Component {
                                         change={this.handleChangeEstado} disabled={true} />
                                 </td>
                                 <td className="two-fields">
-                                    <button id={dynamicData.observacion} name={dynamicData.id_rec}
-                                        onClick={(e) => this.openModal(dynamicData.id_rec, dynamicData.obs)} className="btn btn-primary">
-                                        <span className="mybtn-red glyphicon glyphicon-eye-open"></span>
-                                    </button>
-                                    <button id={dynamicData.observacion_upg} name={dynamicData.id_rec}
-                                        onClick={(e) => this.openModalUpg(dynamicData.id_rec, dynamicData.obs_upg)} className="btn btn-primary">
-                                        <span className="mybtn-blue glyphicon glyphicon-eye-open"></span>
-                                    </button>
+
+
+
+
+                                    <input type="button" onClick={this.openModal} id={dynamicData.observacion}
+                                        name={dynamicData.id_rec} className="btn btn-primary" value="..."></input>
+                                    <input type="button" onClick={this.openModalEco} id={dynamicData.observacion_upg}
+
+
+
+                                        name={dynamicData.id_rec} className="btn btn-primary"
+                                        value="..."></input>
                                 </td>
                             </tr>
                         )}
